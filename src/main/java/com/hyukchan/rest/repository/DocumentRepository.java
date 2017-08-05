@@ -8,4 +8,6 @@ public interface DocumentRepository {
     List<Document> findAllDocuments();
 
     Document findDocument(String documentId);
+
+    Document createDocument(Document document);
 }

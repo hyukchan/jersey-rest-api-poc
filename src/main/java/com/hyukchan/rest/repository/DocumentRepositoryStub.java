@@ -50,4 +50,12 @@ public class DocumentRepositoryStub implements DocumentRepository {
 
         return doc1;
     }
+
+    @Override
+    public Document createDocument(Document document) {
+        Document result = new Document();
+        result.setId("1111");
+
+        return result;
+    }
 }

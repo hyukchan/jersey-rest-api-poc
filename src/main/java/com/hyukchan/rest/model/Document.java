@@ -10,8 +10,17 @@ import java.util.List;
 public class Document {
 
     private String id;
+
     private String filename;
 
     private List<Property> properties;
 
+    @Override
+    public String toString() {
+        return "Document{" +
+                "id='" + id + '\'' +
+                ", filename='" + filename + '\'' +
+                ", properties=" + properties +
+                '}';
+    }
 }
