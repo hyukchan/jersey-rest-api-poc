@@ -1,13 +1,10 @@
 package com.hyukchan.rest.repository;
 
-import com.google.common.base.Strings;
-import com.hyukchan.rest.exception.BadParameterException;
-import com.hyukchan.rest.exception.errors.ErrorCodes;
-import com.hyukchan.rest.exception.errors.items.BadParameterErrorItem;
-import com.hyukchan.rest.exception.errors.items.ErrorItem;
 import com.hyukchan.rest.model.Document;
 import com.hyukchan.rest.model.Property;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,16 +54,18 @@ public class DocumentRepositoryStub implements DocumentRepository {
     }
 
     @Override
-    public Document createDocument(Document document) {
+    public Document createDocument(InputStream uploadedInputStream,
+                                   FormDataContentDisposition fileDetail) {
         Document result = new Document();
+        result.setFilename(fileDetail.getFileName());
         result.setId("1111");
 
-        List<ErrorItem> errorItems = new ArrayList<>();
-        if (Strings.isNullOrEmpty(document.getFilename())) {
-            ErrorItem badParameterErrorItem = new BadParameterErrorItem(ErrorCodes.REQUIRED_VALUE.getErrorCode(), "This field is required.", "filename");
-            errorItems.add(badParameterErrorItem);
-        }
+        return result;
+    }
 
-        throw new BadParameterException(errorItems);
+    @Override
+    public Document updateDocument(String id, Document document) {
+
+        return document;
     }
 }

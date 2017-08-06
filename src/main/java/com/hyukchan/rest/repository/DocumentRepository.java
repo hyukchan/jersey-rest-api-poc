@@ -1,7 +1,9 @@
 package com.hyukchan.rest.repository;
 
 import com.hyukchan.rest.model.Document;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 
+import java.io.InputStream;
 import java.util.List;
 
 public interface DocumentRepository {
@@ -9,5 +11,8 @@ public interface DocumentRepository {
 
     Document findDocument(String documentId);
 
-    Document createDocument(Document document);
+    Document createDocument(InputStream uploadedInputStream,
+                            FormDataContentDisposition fileDetail);
+
+    Document updateDocument(String id, Document document);
 }
