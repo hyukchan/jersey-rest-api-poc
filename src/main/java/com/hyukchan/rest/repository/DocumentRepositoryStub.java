@@ -1,5 +1,10 @@
 package com.hyukchan.rest.repository;
 
+import com.google.common.base.Strings;
+import com.hyukchan.rest.exception.BadParameterException;
+import com.hyukchan.rest.exception.errors.ErrorCodes;
+import com.hyukchan.rest.exception.errors.items.BadParameterErrorItem;
+import com.hyukchan.rest.exception.errors.items.ErrorItem;
 import com.hyukchan.rest.model.Document;
 import com.hyukchan.rest.model.Property;
 
@@ -56,6 +61,12 @@ public class DocumentRepositoryStub implements DocumentRepository {
         Document result = new Document();
         result.setId("1111");
 
-        return result;
+        List<ErrorItem> errorItems = new ArrayList<>();
+        if (Strings.isNullOrEmpty(document.getFilename())) {
+            ErrorItem badParameterErrorItem = new BadParameterErrorItem(ErrorCodes.REQUIRED_VALUE.getErrorCode(), "This field is required.", "filename");
+            errorItems.add(badParameterErrorItem);
+        }
+
+        throw new BadParameterException(errorItems);
     }
 }
